@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input id="input1" name="Input标签的形式选择文件" accept="image/*" type="file" onchange="getImageToShow()"><br>
+<button onclick="pickImage()" style="width:50%;height:20%">JsBridge方式选择文件</button><br>
+<img id="img1" src="/storage/emulated/0/DCIM/Camera/IMG_20180725_201128.jpg" style="width:50%;height:20%">
+</body>
+</html>
+<script>
+    function pickImage(){
+        AndroidJs.pickImage();
+    }
+    function getImageToShow() {
+        let img1 = document.getElementById("img1")
+        let file = document.getElementById("input1").files[0]
+        let reader  = new FileReader();
+        reader.addEventListener("load", function () {
+            img1.src = reader.result;  // 存储在本地的图片的base64编码
+        }, false);
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+    function setImage(url){
+      let img1 = document.getElementById("img1")
+      img1.src = url
+    }
+</script>
